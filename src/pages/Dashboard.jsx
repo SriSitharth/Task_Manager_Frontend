@@ -80,32 +80,34 @@ export default function Dashboard() {
       {tasks.map((task) => (
         <div className="task" key={task._id}>
           {editingId === task._id ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-              <input value={editForm.title} onChange={(e) => setEditForm({ ...editForm, title: e.target.value })} />
-              <input value={editForm.description} onChange={(e) => setEditForm({ ...editForm, description: e.target.value })} />
-              <input type="date" value={editForm.dueDate} onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })} />
-              <select value={editForm.status} onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}>
-                <option value="todo">Todo</option>
-                <option value="in-progress">In Progress</option>
-                <option value="done">Done</option>
-              </select>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                <input value={editForm.title} onChange={(e) => setEditForm({ ...editForm, title: e.target.value })} />
+                <input value={editForm.description} onChange={(e) => setEditForm({ ...editForm, description: e.target.value })} />
+                <input type="date" value={editForm.dueDate} onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })} />
+                <select value={editForm.status} onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}>
+                  <option value="todo">Todo</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </div>
+              <div className="task-edit-actions">
                 <button onClick={() => handleUpdate(task._id)}>Save</button>
                 <button onClick={cancelEdit}>Cancel</button>
               </div>
-            </div>
+            </>
           ) : (
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
+            <>
+              <div style={{ flex: 1 }}>
                 <strong>{task.title}</strong><br />
                 <small>{task.status} | Due: {task.dueDate?.slice(0, 10)}</small><br />
                 <small>{task.description}</small>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div className="task-actions">
                 <button onClick={() => startEdit(task)}>Edit</button>
                 <button onClick={() => handleDelete(task._id)}>Delete</button>
               </div>
-            </div>
+            </>
           )}
         </div>
       ))}
