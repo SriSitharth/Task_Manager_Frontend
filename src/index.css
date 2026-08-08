@@ -5,11 +5,44 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --bg: linear-gradient(180deg, #f4f7fb 0%, #eef3f9 100%);
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --accent: #7c3aed;
+  background: var(--bg);
+  color: #0f172a;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Utility classes */
+.container-center {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Buttons variants */
+.btn {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn:hover { filter: brightness(0.95); }
+.btn-outline { background: transparent; border: 1px solid rgba(15,23,42,0.08); color: var(--primary); }
+.btn-danger { background-color: #ef4444; color: #fff; }
+.btn-danger:hover { filter: brightness(0.95); }
+
+@media (max-width: 600px) {
+  :root { font-size: 15px; }
 }
 
 /* 

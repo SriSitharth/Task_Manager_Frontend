@@ -51,7 +51,7 @@ VITE_BACKEND_URL=http://localhost:5000
 **API Endpoints (documented from frontend usage)**:
 - **Auth**:
   - POST /api/auth/register — register a new user
-    - Body: `{ "email": "...", "password": "..." }`
+    - Body: `{ "name": "...", "email": "...", "password": "..." }`
     - Response: `{ token: "<jwt>" }` (frontend stores in `localStorage`)
   - POST /api/auth/login — login
     - Body: `{ "email": "...", "password": "..." }`

@@ -55,8 +55,8 @@ export default function Dashboard() {
   return (
     <div className="container">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <h2>Dashboard</h2>
-        <button onClick={() => { localStorage.clear(); window.location.reload(); }}>Logout</button>
+          <h2>Dashboard</h2>
+          <button className="btn btn-danger" onClick={() => { localStorage.clear(); window.location.reload(); }}>Logout</button>
       </div>
 
       <h3 style={{ marginBottom: "0.5rem" }}>Add Task</h3>
@@ -72,7 +72,7 @@ export default function Dashboard() {
           </select>
       </div>
       <div className="form-button">
-        <button className="add-btn" onClick={handleAdd}>Add</button>
+          <button className="btn add-btn" onClick={handleAdd}>Add</button>
       </div>
 
       <h3 style={{ marginTop: "2rem", marginBottom: "0.5rem" }}>My Tasks</h3>
@@ -92,8 +92,8 @@ export default function Dashboard() {
                 </select>
               </div>
               <div className="task-edit-actions">
-                <button onClick={() => handleUpdate(task._id)}>Save</button>
-                <button onClick={cancelEdit}>Cancel</button>
+                 <button className="btn" onClick={() => handleUpdate(task._id)}>Save</button>
+                 <button className="btn btn-outline" onClick={cancelEdit}>Cancel</button>
               </div>
             </>
           ) : (
@@ -104,8 +104,8 @@ export default function Dashboard() {
                 <small>{task.description}</small>
               </div>
               <div className="task-actions">
-                <button onClick={() => startEdit(task)}>Edit</button>
-                <button onClick={() => handleDelete(task._id)}>Delete</button>
+                 <button className="btn btn-outline" onClick={() => startEdit(task)}>Edit</button>
+                 <button className="btn btn-danger" onClick={() => handleDelete(task._id)}>Delete</button>
               </div>
             </>
           )}
