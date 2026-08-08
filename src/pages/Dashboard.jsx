@@ -7,6 +7,9 @@ export default function Dashboard() {
   const [form, setForm] = useState({ title: "", description: "", status: "todo", dueDate: "" });
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ title: "", description: "", status: "todo", dueDate: "" });
+  const [isAdding, setIsAdding] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchTasks = async () => {
     const res = await API.get('/tasks');
@@ -22,8 +25,20 @@ export default function Dashboard() {
   }, []);
 
   const handleAdd = async () => {
-    await API.post('/tasks', form);
-    fetchTasks();
+    if (!form.title.trim()) return setErrorMessage('Please enter a title');
+    try {
+      setIsAdding(true);
+      await API.post('/tasks', form);
+      setForm({ title: "", description: "", status: "todo", dueDate: "" });
+      setSuccessMessage('Task added');
+      setTimeout(() => setSuccessMessage(''), 3000);
+      fetchTasks();
+    } catch (err) {
+      setErrorMessage(err?.response?.data?.message || 'Failed to add task');
+      setTimeout(() => setErrorMessage(''), 4000);
+    } finally {
+      setIsAdding(false);
+    }
   };
 
   const startEdit = (task) => {
@@ -53,7 +68,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container">
+    <>
+      <div className="toast-container">
+        {successMessage && <div className="toast success">{successMessage}</div>}
+        {errorMessage && <div className="toast error">{errorMessage}</div>}
+      </div>
+      <div className="container">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
           <h2>Dashboard</h2>
           <button className="btn btn-danger" onClick={() => { localStorage.clear(); window.location.reload(); }}>Logout</button>
@@ -61,18 +81,18 @@ export default function Dashboard() {
 
       <h3 style={{ marginBottom: "0.5rem" }}>Add Task</h3>
       <div className="task-form">
-          <input placeholder="Title" onChange={(e) => setForm({ ...form, title: e.target.value })} />
-          <input placeholder="Description" onChange={(e) => setForm({ ...form, description: e.target.value })} />
+          <input placeholder="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+          <input placeholder="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
 
-          <input type="date" onChange={(e) => setForm({ ...form, dueDate: e.target.value })} />
-          <select onChange={(e) => setForm({ ...form, status: e.target.value })}>
+          <input type="date" value={form.dueDate} onChange={(e) => setForm({ ...form, dueDate: e.target.value })} />
+          <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
             <option value="todo">Todo</option>
             <option value="in-progress">In Progress</option>
             <option value="done">Done</option>
           </select>
       </div>
       <div className="form-button">
-          <button className="btn add-btn" onClick={handleAdd}>Add</button>
+          <button className="btn add-btn" onClick={handleAdd} disabled={isAdding}>{isAdding ? 'Adding...' : 'Add'}</button>
       </div>
 
       <h3 style={{ marginTop: "2rem", marginBottom: "0.5rem" }}>My Tasks</h3>
@@ -111,6 +131,7 @@ export default function Dashboard() {
           )}
         </div>
       ))}
-    </div>
+      </div>
+    </>
   );
 }

@@ -108,11 +108,90 @@ button { font-family: inherit; }
 }
 
 .add-btn{
-    background-color: #007bff !important;
+  background-color: var(--primary) !important;
+  padding: 0.9rem 1.2rem;
+  min-width: 140px;
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
 .add-btn:hover{
-    background-color: #0056b3 !important;
+  filter: brightness(0.95) !important;
+}
+
+.form-button {
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .form-button .add-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.form-feedback {
+  margin-top: 0.6rem;
+}
+
+.success-message {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #bbf7d0;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.error-message {
+  display: inline-block;
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecaca;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.add-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Toasts */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 2000;
+  align-items: flex-end;
+}
+
+.toast {
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.08);
+  font-weight: 700;
+  animation: toast-in 240ms ease;
+}
+
+.toast.success { background: #ecfdf5; color: #065f46; border: 1px solid #bbf7d0; }
+.toast.error { background: #fff1f2; color: #9f1239; border: 1px solid #fecaca; }
+
+@keyframes toast-in {
+  from { transform: translateY(-6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 480px) {
+  .toast-container { right: 0.5rem; top: 0.5rem; }
+  .toast { font-size: 0.95rem; }
 }
 
 @media screen and (max-width: 768px) {
