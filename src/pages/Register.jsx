@@ -10,7 +10,7 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/register`, { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, { email, password });
       localStorage.setItem("token", res.data.token);
       navigate("/");
     } catch (err) {
