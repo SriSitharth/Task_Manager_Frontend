@@ -17,7 +17,7 @@ export default function Register() {
     if (password !== confirmPassword) return alert('Passwords do not match');
 
     try {
-      const res = await API.post('/auth/register', { name, email, password });
+      const res = await API.post('/auth/register', { name, email, password, confirmPassword });
       localStorage.setItem("token", res.data.token);
       navigate("/");
     } catch (err) {
