@@ -8,7 +8,7 @@ export default function Dashboard() {
 
   const fetchTasks = async () => {
     const token = localStorage.getItem("token");
-    const res = await axios.get(`${process.env.BACKEND_URL}/api/tasks`, {
+    const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/tasks`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     setTasks(res.data);
@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   const handleAdd = async () => {
     const token = localStorage.getItem("token");
-    await axios.post(`${process.env.BACKEND_URL}/api/tasks`, form, {
+    await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/tasks`, form, {
       headers: { Authorization: `Bearer ${token}` }
     });
     fetchTasks();
@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
-    await axios.delete(`${process.env.BACKEND_URL}/api/tasks/${id}`, {
+    await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/tasks/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     fetchTasks();
